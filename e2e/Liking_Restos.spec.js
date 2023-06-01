@@ -5,9 +5,9 @@ Feature('Liking Restos');
 Scenario('liking one resto', async ({ I }) => {
     I.amOnPage('/');
 
-    I.waitForVisible('.post-item__content a');
-    I.seeElement('.post-item__content a');
-    const firstResto = locate('.post-item__content a').first();
+    I.waitForVisible('.resto__title');
+    I.seeElement('.resto__title a');
+    const firstResto = locate('.resto__title a').first();
     const firstRestoName = await I.grabTextFrom(firstResto);
 
     I.click(firstResto);
@@ -16,20 +16,18 @@ Scenario('liking one resto', async ({ I }) => {
     I.click('#likeButton');
 
     I.amOnPage('/#/like');
-    I.seeElement('.post-item');
-    const likedRestoName = await I.grabTextFrom('.post-item__content');
+    I.seeElement('.resto-item');
+    const likedRestoName = await I.grabTextFrom('.resto__title');
 
     assert.strictEqual(firstRestoName, likedRestoName);
 });
 
-// Buat skenario lagi buat yang unliking nya
-
 Scenario('unliking one resto', async ({ I }) => {
     I.amOnPage('/');
-    I.waitForVisible('.post-item__content a');
-    I.seeElement('.post-item__content a');
+    I.waitForVisible('.resto__title');
+    I.seeElement('.resto__title a');
 
-    const firstResto = locate('.post-item__content a').first();
+    const firstResto = locate('.resto__title a').first();
     const firstRestoName = await I.grabTextFrom(firstResto);
 
     I.click(firstResto);
@@ -38,18 +36,18 @@ Scenario('unliking one resto', async ({ I }) => {
     I.click('#likeButton');
 
     I.amOnPage('/#/like');
-    I.seeElement('.post-item');
+    I.seeElement('.resto-item');
 
-    const likedRestoName = await I.grabTextFrom('.post-item__content');
+    const likedRestoName = await I.grabTextFrom('.resto__title');
     assert.strictEqual(firstRestoName, likedRestoName);
 
-    I.seeElement('.post-item__content a');
-    const firstRestoFav = locate('.post-item__content a').first();
+    I.seeElement('.resto__title a');
+    const firstRestoFav = locate('.resto__title a').first();
     I.click(firstRestoFav);
 
     I.seeElement('#likeButton');
     I.click('#likeButton');
 
     I.amOnPage('/#/like');
-    I.dontSeeElement('.post-item');
+    I.dontSeeElement('.resto-item');
 });
